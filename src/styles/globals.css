@@ -38,7 +38,7 @@
     }
 
     .button-sidebar-selected {
-        @apply flex-1 p-4 text-center font-bold border-b-2 border-main cursor-pointer transition-colors duration-200 bg-gray-200;
+        @apply flex-1 p-4 text-center font-bold border-b-4 border-main cursor-pointer transition-colors duration-200 bg-gray-200;
     }
 
     .flex-center {
