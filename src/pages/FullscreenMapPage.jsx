@@ -1,8 +1,10 @@
 import MapInteractive from "../components/MapInteractive.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 function FullscreenMapPage() {
   return (
-    <div className="w-3/5 h-120 relative mx-auto flex flex-row">
+    <div className="w-full h-screen relative flex flex-col">
+      <NavBar />
       <MapInteractive />
     </div>
   )

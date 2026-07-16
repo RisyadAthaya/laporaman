@@ -3,7 +3,7 @@ import heroImage from '../assets/Hero Section.png'
 function Hero() {
   const handleScrollToDori = (e) => {
     e.preventDefault();
-    const element = document.getElementById('dori');
+    const element = document.getElementById('mengapa-lapor-aman');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
