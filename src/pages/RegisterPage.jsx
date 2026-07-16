@@ -5,7 +5,7 @@ import logo from "../assets/logo.svg";
 function RegisterPage() {
   return (
     <>
-      <main className="flex h-screen w-screen flex-row items-stretch p-5 gap-5">
+      <main className="flex h-screen w-screen flex-row items-stretch p-5 gap-5 bg-background">
         <form className="flex flex-col justify-center items-start flex-1 px-16 py-5">
           <h1 className="text-4xl font-bold m-0">Create Account</h1>
           <h2 className="text-lg font-light mb-4">
@@ -81,20 +81,15 @@ function RegisterPage() {
             alt="JalanAman"
             className="w-full h-full rounded-[20px] object-cover object-center block"
           />
-          <div
-            className="flex flex-row items-start absolute top-0 left-0 w-full h-full p-5
-        bg-linear-to-t rounded-[20px] gap-2.5"
-          >
-            <div className="flex items-center gap-2.5">
-              <img
-                src={logo}
-                alt="JalanAman"
-                className="object-cover object-center block w-10 h-auto"
-              />
-              <Link to="/" className="text-white text-2xl font-bold m-0">
-                Lapor Aman
-              </Link>
-            </div>
+          <div className="flex items-center gap-2.5 absolute top-0 right-0 bg-background rounded-bl-[20px] px-5 py-4">
+            <img
+              src={logo}
+              alt="JalanAman"
+              className="object-cover object-center block w-10 h-auto"
+            />
+            <Link to="/" className="text-main text-2xl font-bold m-0">
+              Lapor Aman
+            </Link>
           </div>
         </div>
       </main>

@@ -8,7 +8,6 @@
     --color-text3: #4C5F6C;
     --color-stroke: #DCE5E1;
 
-
     --color-dark: hsl(240, 90%, 5%);
     --color-light: hsl(240, 50%, 90%);
     --color-white: hsl(0, 0%, 100%);
@@ -51,7 +50,7 @@
     }
 
     .card-title {
-        @apply text-[1.35rem] text-brand font-semibold m-0 mb-3;
+        @apply text-[1.35rem] text-main font-semibold m-0 mb-3;
     }
 
     .card-text {
