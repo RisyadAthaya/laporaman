@@ -3,6 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
 import { fetchAllMarkers } from '../services/markerService.js'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/useAuth.js';
 
 const initialLongitude = 106.825;
 const initialLatitude = -6.175;
@@ -30,8 +31,9 @@ function MapRestricted({ onShowLogin }) {
   const [dbPinpoints, setDbPinpoints] = useState([]);
   const navigate = useNavigate();
   const [activePopup, setActivePopup] = useState(null);
+  const { currentUser } = useAuth();
 
-  const isLoggedIn = false;
+  const isLoggedIn = !!currentUser;
 
   useEffect(() => {
     const loadMarkers = async () => {
