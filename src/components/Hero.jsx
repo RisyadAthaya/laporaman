@@ -13,7 +13,7 @@ function Hero() {
       <section
           className="hero-section"
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, #028F65 100%), url('${heroImage}')`,
+            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 65%, #028F65 100%), url('${heroImage}')`,
           }}
       >
         <div className="hero-layout">
