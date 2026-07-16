@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import hero from "../assets/loginhero.png";
-import logo from "../assets/logo.svg";
 import { useAuth } from "../contexts/useAuth.js";
 import { getAuthErrorMessage } from "../utils/firebaseErrors.js";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function LoginPage() {
   const { currentUser, login, loginWithGoogle } = useAuth();
@@ -53,7 +53,7 @@ function LoginPage() {
 
   return (
     <>
-      <main className="flex h-screen w-screen flex-row items-stretch p-5 gap-5">
+      <main className="flex h-screen w-screen flex-row items-stretch p-5 gap-5 bg-background">
         <form
           className="flex flex-col justify-center items-start flex-1 px-16 py-5"
           onSubmit={handleSubmit}
@@ -137,14 +137,9 @@ function LoginPage() {
             alt="JalanAman"
             className="w-full h-full rounded-[20px] object-cover object-center block"
           />
-          <div className="flex items-center gap-2.5 absolute top-0 right-0 bg-background rounded-bl-[20px] px-5 py-4">
-            <img
-              src={logo}
-              alt="JalanAman"
-              className="object-cover object-center block w-10 h-auto"
-            />
-            <Link to="/" className="text-main text-2xl font-bold m-0">
-              Lapor Aman
+          <div className="flex  items-center gap-2.5 absolute top-0 right-0 bg-background rounded-bl-[20px] px-5 py-4">
+            <Link to="/" className="text-main text-xl font-bold m-0">
+              <BrandLogo imgStyle={{ width: "25px", height: "38.5px" }} />
             </Link>
           </div>
         </div>
