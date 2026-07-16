@@ -5,9 +5,9 @@ function MapInteractive() {
   return (
     <Map
       initialViewState={{
-        longitude: -122.4,
-        latitude: 37.8,
-        zoom: 14
+        latitude: -6.175,
+        longitude: 106.825,
+        zoom: 15
       }}
       mapStyle="https://tiles.openfreemap.org/styles/bright"
     >
