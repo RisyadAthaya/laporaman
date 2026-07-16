@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import hero from "../assets/hero.png";
+import hero from "../assets/registerhero.png";
 import logo from "../assets/logo.svg";
 
 function RegisterPage() {
   return (
     <>
       <main className="flex h-screen w-screen flex-row items-stretch p-5 gap-5">
-
         <form className="flex flex-col justify-center items-start flex-1 px-16 py-5">
-          <h1 className="text-4xl font-bold m-0">Welcome Back!</h1>
-          <h2 className="text-lg font-light mb-4">Login to your account</h2>
+          <h1 className="text-4xl font-bold m-0">Create Account</h1>
+          <h2 className="text-lg font-light mb-4">
+            Fill in your details to get started
+          </h2>
 
           <div className="form">
             <input
@@ -34,18 +35,19 @@ function RegisterPage() {
           <div className="form">
             <input
               type="password"
-              id="password"
-              name="password"
+              id="confirmPassword"
+              name="confirmPassword"
               required
-              placeholder="Password"
+              minLength={6}
+              placeholder="Confirm Password"
             />
           </div>
 
           <button
             type="submit"
-            className="bg-brand text-white border-none block rounded-[5px] p-2.5 text-base cursor-pointer w-full disabled:opacity-60 disabled:cursor-not-allowed"
+            className="bg-main text-white border-none block rounded-[5px] p-2.5 text-base cursor-pointer w-full disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Login
+            Register
           </button>
 
           <div className="flex items-center gap-2.5 w-full my-2.5 text-sm text-gray-400">
@@ -64,10 +66,10 @@ function RegisterPage() {
           <div className="flex mt-2.5 text-sm text-gray-500">
             <p>
               {" "}
-              Don't have an account?{" "}
-              <Link to="/register" className="text-brand hover:underline">
+              Already have an account?{" "}
+              <Link to="/login" className="text-main hover:underline">
                 {" "}
-                Register
+                Sign in
               </Link>
             </p>
           </div>
@@ -81,7 +83,7 @@ function RegisterPage() {
           />
           <div
             className="flex flex-row items-start absolute top-0 left-0 w-full h-full p-5
-        bg-linear-to-t from-brand to-transparent rounded-[20px] gap-2.5"
+        bg-linear-to-t rounded-[20px] gap-2.5"
           >
             <div className="flex items-center gap-2.5">
               <img

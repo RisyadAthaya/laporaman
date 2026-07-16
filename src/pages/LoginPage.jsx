@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import hero from "../assets/hero.png";
+import hero from "../assets/loginhero.png";
 import logo from "../assets/logo.svg";
 
 function LoginPage() {
@@ -9,7 +9,7 @@ function LoginPage() {
 
         <form className="flex flex-col justify-center items-start flex-1 px-16 py-5">
           <h1 className="text-4xl font-bold m-0">Welcome Back!</h1>
-          <h2 className="text-lg font-light mb-4">Login to your account</h2>
+          <h2 className="text-lg font-light mb-4 text-text2">Login to your account</h2>
 
           <div className="form">
             <input
@@ -33,7 +33,7 @@ function LoginPage() {
 
           <button
             type="submit"
-            className="bg-brand text-white border-none block rounded-[5px] p-2.5 text-base cursor-pointer w-full disabled:opacity-60 disabled:cursor-not-allowed"
+            className="bg-main text-white border-none block rounded-[5px] p-2.5 text-base cursor-pointer w-full disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Login
           </button>
@@ -55,7 +55,7 @@ function LoginPage() {
             <p>
               {" "}
               Don't have an account?{" "}
-              <Link to="/register" className="text-brand hover:underline">
+              <Link to="/register" className="text-main hover:underline">
                 {" "}
                 Register
               </Link>
@@ -71,7 +71,7 @@ function LoginPage() {
           />
           <div
             className="flex flex-row items-start absolute top-0 left-0 w-full h-full p-5
-        bg-linear-to-t from-brand to-transparent rounded-[20px] gap-2.5"
+        bg-linear-to-t rounded-[20px] gap-2.5"
           >
             <div className="flex items-center gap-2.5">
               <img
