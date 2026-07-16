@@ -27,7 +27,7 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                   if (selectedMarkerKey !== marker.key) return null
 
                   return (
-                    <div>
+                    <div key={marker.key}>
                       <h3>{marker.title}</h3>
                       <p>{marker.description}</p>
                     </div>
