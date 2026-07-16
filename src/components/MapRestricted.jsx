@@ -9,7 +9,6 @@ const initialLatitude = -6.175;
 function MapRestricted() {
   const [markers, setMarkers] = useState([]);
   const [activePopupKey, setActivePopupKey] = useState(null)
-  const [isEditMode, setIsEditMode] = useState(false)
 
   // Fetch the markers data
   useEffect(() => {
@@ -39,7 +38,7 @@ function MapRestricted() {
           color="#000000"
           onClick={(e) => {
             e.originalEvent.stopPropagation();
-            if (!isEditMode) setActivePopupKey(marker.key);
+            setActivePopupKey(marker.key);
           }}
         >
         </Marker>
