@@ -12,9 +12,7 @@ function LandingPage() {
         <NavBar />
         <main className="landing-page-main bg-[#F5FDF9]">
           <Hero />
-          <div className="h-100">
-            <MapRestricted />
-          </div>
+          <MapRestricted />
           <Why />
           <Faq />
         </main>
