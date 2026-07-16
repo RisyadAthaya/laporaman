@@ -61,12 +61,15 @@
 
     .header1 {
         display: flex;
+        align-items: center;
         background-color: #ffffff;
         position: sticky;
         top: 0;
         z-index: 50;
         border-bottom: 1px solid var(--color-stroke, #DCE5E1);
         box-sizing: border-box;
+        height: var(--header-height, 4.5rem);
+        width: 100%;
     }
 
 
@@ -95,10 +98,15 @@
     .hero-section {
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         background-size: cover;
         background-position: center;
         position: relative;
         box-sizing: border-box;
+        height: calc(100vh - var(--header-height, 4.5rem));
+        min-height: 500px;
+        max-height: 850px;
+        padding-bottom: 4.5rem;
     }
 
     .hero-layout {
@@ -147,5 +155,25 @@
     .landing-page-main > div {
         scroll-snap-align: start;
         scroll-snap-stop: normal;
+    }
+
+    .login-btn {
+        display: inline-flex;
+        padding: 12px 24px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        background-color: #028F65;
+        color: #052849;
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 9999px;
+        text-decoration: none;
+        border: 1.5px solid transparent;
+        cursor: pointer;
+        box-sizing: border-box;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
     }
 }
