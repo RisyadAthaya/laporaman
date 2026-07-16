@@ -136,7 +136,7 @@
     }
 
     .hero-headline {
-        color: var(--white, #ffffff);
+        color: var(--color-white, #ffffff);
         font-family: 'Inter', sans-serif;
         font-size: 60px;
         font-style: normal;
