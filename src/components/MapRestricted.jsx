@@ -1,32 +1,37 @@
 import { Map, Marker, Popup } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchAllMarkers } from '../services/markerService.js'
+
+const initialLongitude = 106.825;
+const initialLatitude = -6.175;
 
 function MapRestricted() {
+  const [markers, setMarkers] = useState([]);
   const [activePopupKey, setActivePopupKey] = useState(null)
   const [isEditMode, setIsEditMode] = useState(false)
 
-  const markersData = [
-    {
-      key: 1,
-      longitude: 106.825,
-      latitude: -6.175,
-      title: "Rumah Ihsan",
-      description: "Ihsan ganteng"
-    }
-  ]
+  // Fetch the markers data
+  useEffect(() => {
+    const loadMarkers = async () => {
+      const data = await fetchAllMarkers();
+      setMarkers(data);
+    };
+
+    loadMarkers();
+  }, []);
 
   return (
     <Map
       initialViewState={{
-        longitude: 106.825,
-        latitude: -6.175,
+        longitude: initialLongitude,
+        latitude: initialLatitude,
         zoom: 15
       }}
       mapStyle="https://tiles.openfreemap.org/styles/bright"
     >
 
-      {markersData.map((marker) => (
+      {markers.map((marker) => (
         <Marker
           key={marker.key}
           longitude={marker.longitude}
@@ -40,7 +45,7 @@ function MapRestricted() {
         </Marker>
       ))}
 
-      {markersData.map((marker) => {
+      {markers.map((marker) => {
         if (activePopupKey !== marker.key) return null
 
         return (
