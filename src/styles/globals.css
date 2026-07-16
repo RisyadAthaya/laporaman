@@ -51,7 +51,7 @@
     }
 
     .card-title {
-        @apply text-[1.35rem] text-brand font-semibold m-0 mb-3;
+        @apply text-[1.35rem] text-main font-semibold m-0 mb-3;
     }
 
     .card-text {
