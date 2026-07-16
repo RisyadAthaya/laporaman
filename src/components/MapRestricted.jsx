@@ -69,8 +69,13 @@ function MapRestricted({ onShowLogin }) {
 
 
   return (
-      <section className="flex flex-col lg:flex-row items-center justify-between py-16 px-6 lg:px-24 bg-background gap-12 w-full max-w-310 mx-auto" id="laporan-peta">
-        {/* Self-contained Ripple and Pulse CSS Animation */}
+      <section
+          className="flex flex-col lg:flex-row items-center justify-between pt-44 pb-20 px-6 lg:px-24 bg-background gap-12 w-full mx-0"
+          id="laporan-peta"
+          style={{
+            backgroundImage: 'linear-gradient(180deg, #028F65 0%,rgba(0, 0, 0, 0) 21%)',
+          }}
+      >
         <style>{`
         @keyframes customRipple {
           0% {
@@ -91,7 +96,6 @@ function MapRestricted({ onShowLogin }) {
         }
       `}</style>
 
-        {/* Left Column - Content */}
         <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
           <div className="flex items-center gap-2 mb-4 bg-[#23B58A]/10 px-3 py-1.5 rounded-full">
             <span className="w-2.5 h-2.5 rounded-full bg-[#23B58A] animate-pulse"></span>
@@ -158,7 +162,6 @@ function MapRestricted({ onShowLogin }) {
                                   backgroundColor: pin.color,
                                 }}
                             />
-                            {/* Inner Solid Pin with White Border */}
                             <div
                                 className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(0,0,0,0.15)]"
                                 style={{
@@ -194,7 +197,6 @@ function MapRestricted({ onShowLogin }) {
               )
             </div>
 
-            {/* Bottom Prompt inside the Map Card */}
             <div className="w-full text-center py-3 bg-white mt-1 border-t border-gray-50">
               {isLoggedIn ? (
                   <span className="text-xs font-semibold text-text3 font-sans">

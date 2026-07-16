@@ -5,6 +5,7 @@ import Hero from "../components/Hero.jsx"
 import Why from "../components/Why.jsx"
 import Faq from "../components/Faq.jsx"
 import MapRestricted from "../components/MapRestricted.jsx"
+import Footer from "../components/Footer.jsx";
 import LoginPopup from "../components/LoginPopup.jsx"
 
 function LandingPage() {
@@ -19,6 +20,7 @@ function LandingPage() {
           <Why />
           <Faq />
         </main>
+        <Footer />
         {showLogin && <LoginPopup onClose={() => setShowLogin(false)} />}
       </>
   )

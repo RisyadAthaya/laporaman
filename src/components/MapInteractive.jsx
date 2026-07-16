@@ -27,8 +27,12 @@ function MapInteractive() {
   }, []);
 
   const mapHandleClick = (e) => {
-    if (!isEditMode || draftMarkerLocation) return null
+    if (!isEditMode) {
+      setActivePopupKey(null)
+      return null
+    }
 
+    setDetailsSectionSelected(false)
     const { lng, lat } = e.lngLat
     setDraftMarkerLocation({ longitude: lng, latitude: lat })
     setDraftMarkerData({ title: "", description: "", color: "#000000" })
@@ -53,6 +57,7 @@ function MapInteractive() {
         { ...newMarker, key: cloudKey }
       ]);
       setDraftMarkerLocation(null);
+      setDraftMarkerData(null);
     }
   }
 
@@ -90,7 +95,7 @@ function MapInteractive() {
               key={marker.key}
               longitude={marker.longitude}
               latitude={marker.latitude}
-              color="#000000"
+              color={marker.color}
               onClick={(e) => {
                 e.originalEvent.stopPropagation();
                 if (!isEditMode) setActivePopupKey(marker.key);
