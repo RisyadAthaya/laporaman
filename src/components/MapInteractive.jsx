@@ -1,4 +1,4 @@
-import { Map, Marker, Popup } from 'react-map-gl/maplibre'
+import { Map, Marker } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
@@ -107,7 +107,6 @@ function MapInteractive() {
         selectedMarkerKey={activePopupKey}
         markersDatabase={markers}
         draftLocation={draftMarkerLocation}
-        setDraftLocation={setDraftMarkerLocation}
         draftData={draftMarkerData}
         setDraftData={setDraftMarkerData}
         handleSaveDraft={handleSaveDraftMarker}

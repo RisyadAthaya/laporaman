@@ -1,5 +1,5 @@
 function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedMarkerKey, markersDatabase,
-                     draftLocation, setDraftLocation, draftData, setDraftData, handleSaveDraft }) {
+                     draftLocation, draftData, setDraftData, handleSaveDraft }) {
 
   return (
     <div className="flex flex-col w-160 rounded-tl-4xl rounded-bl-4xl">
