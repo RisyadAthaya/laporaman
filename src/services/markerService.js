@@ -3,7 +3,7 @@ import { database } from "./firebaseConfig.js";
 
 export const saveMarker = async (markerData) => {
   try {
-    const docRef = doc(collection(database, "markers"));
+    const docRef = doc(collection(database, "reports"));
     const cloudId = docRef.id;
 
     const finalMarkerData = {
@@ -21,7 +21,7 @@ export const saveMarker = async (markerData) => {
 
 export const fetchAllMarkers = async () => {
   try {
-    const querySnapshot = await getDocs(collection(database, "markers"));
+    const querySnapshot = await getDocs(collection(database, "reports"));
 
     // Transform Firebase's raw snapshot into an array
     return querySnapshot.docs.map(doc => ({

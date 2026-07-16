@@ -65,10 +65,10 @@ function MapInteractive() {
         style={{
           backgroundColor: isEditMode ? '#E53935' : '#008236'
         }}
-        className="absolute font-bold cursor-pointer text-white w-12 h-12 rounded-full bottom-11 right-3 z-10 transition-all duration-100"
+          className="absolute font-bold cursor-pointer text-white w-16 h-16 rounded-full bottom-11 right-3 z-10 transition-all duration-100"
       >
         <div className="flex items-center justify-center">
-          <Plus className="h-6 w-6 stroke-[3px]" />
+          <Plus className="h-8 w-8 stroke-[3px]" />
         </div>
       </button>
       <Map
