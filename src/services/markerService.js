@@ -19,7 +19,7 @@ export const saveMarker = async (markerData) => {
   }
 };
 
-export const fetchAllPinpoints = async () => {
+export const fetchAllMarkers = async () => {
   try {
     const querySnapshot = await getDocs(collection(database, "markers"));
 
