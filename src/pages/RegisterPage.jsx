@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hero from "../assets/registerhero.png";
-import logo from "../assets/logo.svg";
+import BrandLogo from "../components/BrandLogo.jsx";
 import { useAuth } from "../contexts/useAuth.js";
 import { getAuthErrorMessage } from "../utils/firebaseErrors.js";
 
@@ -157,13 +157,8 @@ function RegisterPage() {
             className="w-full h-full rounded-[20px] object-cover object-center block"
           />
           <div className="flex items-center gap-2.5 absolute top-0 right-0 bg-background rounded-bl-[20px] px-5 py-4">
-            <img
-              src={logo}
-              alt="JalanAman"
-              className="object-cover object-center block w-10 h-auto"
-            />
-            <Link to="/" className="text-main text-2xl font-bold m-0">
-              Lapor Aman
+            <Link to="/" className="text-main text-xl font-bold m-0">
+              <BrandLogo imgStyle={{ width: "25px", height: "38.5px" }} />
             </Link>
           </div>
         </div>
