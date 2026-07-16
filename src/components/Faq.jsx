@@ -37,13 +37,13 @@ function Faq() {
   }
 
   return (
-      <section className="flex flex-col items-center py-600 px-300 bg-[#F5FDF9]" id="faq">
+      <section className="flex flex-col items-center py-600 px-300 bg-background" id="faq">
         <div className="section-header max-w-[800px] mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-[#052849] m-0 mb-4 font-sans tracking-tight text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-text2 m-0 mb-4 font-sans tracking-tight text-center">
             Frequently Ask Question
           </h2>
-          <p className="text-sm md:text-base text-[#4C5F6C] m-0 leading-normal text-center font-sans">
-            Find answers to various questions about <span className="text-[#028F65] font-semibold">Lapor Aman</span>.
+          <p className="text-sm md:text-base text-text3 m-0 leading-normal text-center font-sans">
+            Find answers to various questions about <span className="text-main font-semibold">Lapor Aman</span>.
           </p>
         </div>
         <div className="w-full max-w-[1000px] flex flex-col gap-6">
@@ -52,18 +52,18 @@ function Faq() {
             return (
                 <div
                     key={faq.id}
-                    className="bg-white border border-[#DCE5E1]/60 rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] duration-300 hover:shadow-[0_12px_32px_rgba(2,143,101,0.06)] hover:border-[#DCE5E1]"
+                    className="bg-white border border-stroke/60 rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] duration-300 hover:shadow-[0_12px_32px_rgba(2,143,101,0.06)] hover:border-stroke"
                 >
                   <button
                       className="w-full flex justify-between items-center py-5 px-8 bg-transparent border-none cursor-pointer text-left outline-none transition-colors duration-200"
                       onClick={() => toggleFaq(faq.id)}
                       aria-expanded={isOpen}
                   >
-                <span className="text-[16px] md:text-[17px] font-bold text-[#028F65] leading-[1.4] pr-6 font-sans">
+                <span className="text-[16px] md:text-[17px] font-bold text-main leading-[1.4] pr-6 font-sans">
                   {faq.question}
                 </span>
                     <div
-                        className={`bg-[#028F65] text-[#052849] rounded-full w-10 h-10 flex items-center justify-center shrink-0 transition-transform duration-300 ease-in-out ${
+                        className={`bg-main text-text2 rounded-full w-10 h-10 flex items-center justify-center shrink-0 transition-transform duration-300 ease-in-out ${
                             isOpen ? 'rotate-180' : 'rotate-0'
                         }`}
                     >
@@ -76,7 +76,7 @@ function Faq() {
                       }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="px-8 pb-6 pt-2 text-[14px] text-[#4C5F6C] leading-relaxed border-t border-[#DCE5E1]/30 font-sans">
+                      <div className="px-8 pb-6 pt-2 text-[14px] text-text3 leading-relaxed border-t border-stroke/30 font-sans">
                         {faq.answer}
                       </div>
                     </div>

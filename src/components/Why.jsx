@@ -56,39 +56,34 @@ function FeatureCard({ item, delay }) {
           ref={ref}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`relative group h-[350px] rounded-[16px] overflow-hidden border border-[#DCE5E1] shadow-[0_4px_20px_rgba(0,0,0,0.03)] cursor-pointer transition-all ease-out duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(2,143,101,0.12)] ${
+          className={`relative group h-[350px] rounded-[16px] overflow-hidden border border-stroke shadow-[0_4px_20px_rgba(0,0,0,0.03)] cursor-pointer transition-all ease-out duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(2,143,101,0.12)] ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: `${delay}ms` }}
       >
-        {/* Background Image */}
         <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ backgroundImage: `url(${item.image})` }} // [DIUBAH] Menggunakan `item.image` dari objek di array, bukan `bostonImage`
         />
 
-        {/* Dark Overlay over the image */}
         <div className={`absolute inset-0 transition-all duration-300 ${
             isHovered ? 'bg-black/50' : 'bg-black/10'
         }`} />
 
-        {/* Slide-up Content Panel */}
         <div
             className={`absolute bottom-0 left-0 right-0 p-5 flex flex-col justify-start transition-all duration-300 ease-in-out rounded-t-[16px] ${
-                isHovered ? 'bg-[#F5FDF9]' : 'bg-white'
+                isHovered ? 'bg-background' : 'bg-white'
             }`}
             style={{
               height: '240px',
               transform: isHovered ? 'translateY(0)' : 'translateY(180px)', // Leaves exactly 60px (240px - 180px) visible
             }}
         >
-          {/* Title */}
-          <h3 className="font-sans font-bold text-[16px] text-[#052849] m-0 mb-3 leading-normal min-h-[24px] flex items-center">
+          <h3 className="font-sans font-bold text-[16px] text-text2 m-0 mb-3 leading-normal min-h-[24px] flex items-center">
             {item.title}
           </h3>
 
-          {/* Description */}
-          <p className={`font-sans text-[13px] text-[#4C5F6C] leading-[1.6] m-0 transition-opacity duration-300 ${
+          <p className={`font-sans text-[13px] text-text3 leading-[1.6] m-0 transition-opacity duration-300 ${
               isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}>
             {item.description}
@@ -100,12 +95,12 @@ function FeatureCard({ item, delay }) {
 
 function WhySection() {
   return (
-      <section className="flex flex-col items-center py-600 px-300 bg-[#F5FDF9]" id="mengapa-lapor-aman">
+      <section className="flex flex-col items-center py-600 px-300 bg-background" id="mengapa-lapor-aman">
         <div className="section-header max-w-[800px]">
-          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-[#052849] m-0 mb-4 font-sans tracking-tight text-center">
-            Why <span className="text-[#028F65]">Lapor Aman</span>?
+          <h2 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-text2 m-0 mb-4 font-sans tracking-tight text-center">
+            Why <span className="text-main">Lapor Aman</span>?
           </h2>
-          <p className="text-sm md:text-base text-[#4C5F6C] m-0 leading-normal max-w-2xl text-center font-sans">
+          <p className="text-sm md:text-base text-text3 m-0 leading-normal max-w-2xl text-center font-sans">
             Together, let us create journeys that are safer, more comfortable, and free from road hazards.
           </p>
         </div>
