@@ -2,11 +2,9 @@ import { Map, Marker, Popup } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState } from 'react'
 
-function MapInteractive() {
+function MapRestricted() {
   const [activePopupKey, setActivePopupKey] = useState(null)
   const [isEditMode, setIsEditMode] = useState(false)
-  const [draftMarkerLocation, setDraftMarkerLocation] = useState(null)
-  const [draftMarkerData, setDraftMarkerData] = useState(null)
 
   const markersData = [
     {
@@ -18,14 +16,6 @@ function MapInteractive() {
     }
   ]
 
-  const mapHandleClick = (e) => {
-    if (!isEditMode || draftMarkerLocation) return null
-
-    const { longitude, latitude } = e.lngLat()
-    setDraftMarkerLocation({ longitude: longitude, latitude: latitude })
-    setDraftMarkerData({ title: "", description: "", color: "#000000" })
-  }
-
   return (
     <Map
       initialViewState={{
@@ -34,18 +24,8 @@ function MapInteractive() {
         zoom: 15
       }}
       mapStyle="https://tiles.openfreemap.org/styles/bright"
-      onClick={mapHandleClick}
     >
-      <button
-        onClick={() => {
-          setIsEditMode(!isEditMode);
-          setDraftMarkerLocation(null);
-        }}
-      >
-        Edit
-      </button>
 
-      {/*Load the markers contained in the database*/}
       {markersData.map((marker) => (
         <Marker
           key={marker.key}
@@ -60,7 +40,6 @@ function MapInteractive() {
         </Marker>
       ))}
 
-      {/*Show the popup of a marker when clicked*/}
       {markersData.map((marker) => {
         if (activePopupKey !== marker.key) return null
 
@@ -78,23 +57,8 @@ function MapInteractive() {
           </Popup>
         )
       })}
-
-      {/*Show the input popup when a position is clicked and is in edit mode*/}
-      {!draftMarkerLocation && (
-        <Popup
-          longitude={draftMarkerLocation.longitude}
-          latitude={draftMarkerLocation.latitude}
-          anchor="bottom"
-          onClose={() => setDraftMarkerLocation(null)}
-          closeOnClick={true}
-          closeButton={false}
-        >
-        {/* TODO: Input data */}
-          <p>test</p>
-        </Popup>
-      )}
     </Map>
   )
 }
 
-export default MapInteractive
+export default MapRestricted
