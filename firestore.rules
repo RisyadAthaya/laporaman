@@ -1,0 +1,51 @@
+rules_version = '2';
+
+// NOTE: this repo has no firebase.json/.firebaserc — these rules are drafted
+// for the "reports" collection's upvote feature but are NOT deployed yet.
+// To apply them: `firebase init` (Firestore) in this directory, then
+// `firebase deploy --only firestore:rules`.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // One report per user per REPORT_COOLDOWN_SECONDS (see markerService.js).
+    // Written in the same batch as the report it gates, so a client can't
+    // create a report without also paying the cooldown. lastReportAt must be
+    // request.time (a server-set timestamp), so a client can't spoof it to
+    // "the past" to skip the wait.
+    match /rateLimits/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['lastReportAt'])
+        && request.resource.data.lastReportAt == request.time;
+      allow delete: if false;
+    }
+
+    match /reports/{reportId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && (
+          !exists(/databases/$(database)/documents/rateLimits/$(request.auth.uid))
+          || request.time > get(/databases/$(database)/documents/rateLimits/$(request.auth.uid)).data.lastReportAt + duration.value(60, 's')
+        );
+      allow delete: if false;
+
+      // Only allow authenticated users to update voteCount/voterIds, and only
+      // by adding or removing exactly their own uid.
+      allow update: if request.auth != null
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['voteCount', 'voterIds'])
+        && (
+          (
+            request.resource.data.voterIds.size() == resource.data.voterIds.size() + 1 &&
+            request.resource.data.voterIds.toSet() == resource.data.voterIds.toSet().union([request.auth.uid]) &&
+            request.resource.data.voteCount == resource.data.voteCount + 1
+          ) ||
+          (
+            request.resource.data.voterIds.size() == resource.data.voterIds.size() - 1 &&
+            resource.data.voterIds.toSet() == request.resource.data.voterIds.toSet().union([request.auth.uid]) &&
+            request.resource.data.voteCount == resource.data.voteCount - 1
+          )
+        );
+    }
+  }
+}

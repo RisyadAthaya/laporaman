@@ -1,7 +1,7 @@
 import warningSign from "../assets/warningsign.svg"
 
 function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedMarkerKey, markersDatabase,
-                       draftLocation, draftData, setDraftData, handleSaveDraft }) {
+                       draftLocation, draftData, setDraftData, handleSaveDraft, cooldownRemaining, reportError }) {
 
   const activeMarker = markersDatabase.find(marker => marker.key === selectedMarkerKey);
 
@@ -73,8 +73,15 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                         className="cursor-pointer p-0 border-0 h-6"
                       />
                     </div>
-                    <button onClick={handleSaveDraft} className="button-300 text-white bg-green-700">
-                      Save
+                    {reportError && (
+                      <p className="text-xs font-semibold text-red-600">{reportError}</p>
+                    )}
+                    <button
+                      onClick={handleSaveDraft}
+                      disabled={cooldownRemaining > 0}
+                      className="button-300 text-white bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {cooldownRemaining > 0 ? `Wait ${cooldownRemaining}s` : "Save"}
                     </button>
                   </div>
                 ) : (
