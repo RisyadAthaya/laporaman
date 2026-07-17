@@ -26,7 +26,6 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
           <>
             {!isEditing ? (
               <>
-                {/* 2. Show the active marker if it exists, otherwise show Hello World */}
                 {activeMarker ? (
                   <div key={activeMarker.key}>
                     <h3>{activeMarker.title}</h3>
@@ -50,7 +49,6 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
           <>
             {isEditing ? (
               <>
-                {/* 3. Show the input popup if there is a draft, otherwise show Hello World */}
                 {draftLocation ? (
                   <div className="flex flex-col gap-2 p-2 min-w-40">
                     <input

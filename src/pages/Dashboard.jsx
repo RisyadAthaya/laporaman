@@ -22,6 +22,8 @@ import { useLocation } from "react-router-dom";
 const initialLongitude = 106.828;
 const initialLatitude = -6.222;
 
+// TODO: Ganti DEFAULT_PREVIEW_PINS sama INITIAL_REPORTS pake data asli
+
 const DEFAULT_PREVIEW_PINS = [
   { key: 'p1', longitude: 106.818, latitude: -6.215, color: '#FF8125', title: 'Kerusakan Jalan Karet', description: 'Jalan berlubang besar di sekitar Karet Tengsin.' },
   { key: 'p2', longitude: 106.824, latitude: -6.208, color: '#FF2525', title: 'Lampu Jalan Guntur', description: 'Lampu penerangan jalan utama padam total.' },
