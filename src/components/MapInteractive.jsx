@@ -2,7 +2,7 @@ import { Map, Marker } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState, useEffect } from 'react'
 import { Plus, Loader2 } from 'lucide-react'
-import { saveMarker, fetchAllMarkers, createNewMarker, getReportCooldownRemaining } from '../services/markerService.js'
+import { saveMarker, fetchAllMarkers, createNewMarker, getReportsRemainingToday } from '../services/markerService.js'
 import { useAuth } from '../contexts/useAuth.js'
 import SideBarMaps from "./SideBarMaps.jsx";
 
@@ -29,7 +29,7 @@ function MapInteractive() {
   const [draftMarkerLocation, setDraftMarkerLocation] = useState(null)
   const [draftMarkerData, setDraftMarkerData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [cooldownRemaining, setCooldownRemaining] = useState(0)
+  const [reportsRemainingToday, setReportsRemainingToday] = useState(null)
   const [reportError, setReportError] = useState(null)
 
   useEffect(() => {
@@ -42,16 +42,6 @@ function MapInteractive() {
 
     loadMarkers();
   }, []);
-
-  useEffect(() => {
-    if (cooldownRemaining <= 0) return;
-
-    const timer = setInterval(() => {
-      setCooldownRemaining((previous) => Math.max(0, previous - 1));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [cooldownRemaining]);
 
   const mapHandleClick = (e) => {
     if (!isEditMode) {
@@ -66,15 +56,15 @@ function MapInteractive() {
     setDraftMarkerData({ title: "", description: "", color: "#000000" })
 
     if (currentUser) {
-      getReportCooldownRemaining(currentUser.uid).then(setCooldownRemaining);
+      getReportsRemainingToday(currentUser.uid).then(setReportsRemainingToday);
     }
   }
 
   const handleSaveDraftMarker = async () => {
     if (!draftMarkerLocation || !currentUser) return;
 
-    if (cooldownRemaining > 0) {
-      setReportError(`You're reporting too fast — please wait ${cooldownRemaining}s before submitting another report.`);
+    if (reportsRemainingToday === 0) {
+      setReportError(`You've reached today's report limit — please try again tomorrow.`);
       return;
     }
 
@@ -91,11 +81,11 @@ function MapInteractive() {
       ]);
       setDraftMarkerLocation(null);
       setDraftMarkerData(null);
-      setCooldownRemaining(0);
+      setReportsRemainingToday((previous) => Math.max(0, (previous ?? 1) - 1));
     } catch (error) {
       setReportError(error.message);
-      const remaining = await getReportCooldownRemaining(currentUser.uid);
-      setCooldownRemaining(remaining);
+      const remaining = await getReportsRemainingToday(currentUser.uid);
+      setReportsRemainingToday(remaining);
     }
 
     setIsLoading(false);
@@ -171,7 +161,7 @@ function MapInteractive() {
           draftData={draftMarkerData}
           setDraftData={setDraftMarkerData}
           handleSaveDraft={handleSaveDraftMarker}
-          cooldownRemaining={cooldownRemaining}
+          reportsRemainingToday={reportsRemainingToday}
           reportError={reportError}
       />
     </div>

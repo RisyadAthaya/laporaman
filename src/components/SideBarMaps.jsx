@@ -1,7 +1,7 @@
 import warningSign from "../assets/warningsign.svg"
 
 function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedMarkerKey, markersDatabase,
-                       draftLocation, draftData, setDraftData, handleSaveDraft }) {
+                       draftLocation, draftData, setDraftData, handleSaveDraft, reportsRemainingToday, reportError }) {
 
   const activeMarker = markersDatabase.find(marker => marker.key === selectedMarkerKey);
 
@@ -115,11 +115,14 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                         // Using a brief timeout ensures the state update has time to process
                         // before the parent's handleSaveDraft function is executed.
                         setTimeout(() => handleSaveDraft(), 0);
-                      }}
+                      }} disabled={reportsRemainingToday === 0}
                       className="button-300 text-white bg-green-700 mt-2 py-1 rounded"
                     >
-                      Save
+                      {reportsRemainingToday === 0 ? "Daily limit reached" : "Save"}
                     </button>
+                    {reportsRemainingToday > 0 && (
+                      <p className="text-xs text-text3">{reportsRemainingToday} report{reportsRemainingToday === 1 ? "" : "s"} left today</p>
+                    )}
                   </div>
                 ) : (
                   <div className="flex h-full text-center items-center justify-center">
