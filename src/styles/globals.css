@@ -198,16 +198,6 @@ body {
         transform: scale(0.98);
     }
 
-    .landing-page-main > section,
-    .landing-page-main > div {
-        scroll-snap-align: start;
-        scroll-snap-stop: normal;
-    }
-
-    .landing-page-footer {
-        scroll-snap-align: end;
-    }
-
 
     .add-report-btn {
         display: inline-flex;

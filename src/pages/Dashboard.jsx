@@ -17,6 +17,7 @@ import {
 import DashboardHeader from "../components/DashboardHeader.jsx";
 import MapInteractive from "../components/MapInteractive.jsx";
 import { fetchAllMarkers } from "../services/markerService.js";
+import { useLocation } from "react-router-dom";
 
 const initialLongitude = 106.828;
 const initialLatitude = -6.222;
@@ -184,7 +185,16 @@ const getCategoryOfReport = (report) => {
 };
 
 function Dashboard() {
-  const [activeTab, setActiveTab] = useState("beranda");
+
+  const location = useLocation();
+  const getInitialTab = () => {
+    if (location.state?.activeTab) return location.state.activeTab;
+    const params = new URLSearchParams(location.search);
+    if (params.get("tab")) return params.get("tab");
+    return "beranda";
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
   const [dbMarkers, setDbMarkers] = useState([]);
 
   const [likesState, setLikesState] = useState({});

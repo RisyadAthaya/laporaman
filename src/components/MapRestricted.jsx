@@ -61,7 +61,7 @@ function MapRestricted({ onShowLogin }) {
 
   const handleActionClick = () => {
     if (isLoggedIn) {
-      navigate('/maps');
+      navigate('/dashboard', { state: { activeTab: 'peta' } });
     } else if (onShowLogin) {
       onShowLogin();
     }
