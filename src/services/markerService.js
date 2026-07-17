@@ -103,8 +103,17 @@ export const createNewMarker = (draftMarkerLocation, draftMarkerData) => {
   return {
     longitude: draftMarkerLocation.longitude,
     latitude: draftMarkerLocation.latitude,
+    // TODO: Use geocoder to get locationname
+    locationName: "-",
     color: draftMarkerData.color,
+    time: new Date().toISOString().replace('T', ' ').substring(0, 16),
     title: draftMarkerData.title || "Untitled Marker",
-    description: draftMarkerData.description
+    description: draftMarkerData.description,
+    category: "",
+    dangerLevel: "",
+    status: "Menunggu",
+    upvotes: 0,
+    comments: [
+    ]
   }
 }
