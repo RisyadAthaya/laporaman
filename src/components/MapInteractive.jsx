@@ -2,7 +2,7 @@ import { Map, Marker } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
-import { saveMarker, fetchAllMarkers } from '../services/markerService.js'
+import { saveMarker, fetchAllMarkers, createNewMarker } from '../services/markerService.js'
 import SideBarMaps from "./SideBarMaps.jsx";
 
 const initialLongitude = 106.825;
@@ -51,14 +51,7 @@ function MapInteractive() {
   const handleSaveDraftMarker = async () => {
     if (!draftMarkerLocation) return;
 
-    const newMarker = {
-      longitude: draftMarkerLocation.longitude,
-      latitude: draftMarkerLocation.latitude,
-      color: draftMarkerData.color,
-      title: draftMarkerData.title || "Untitled Marker",
-      description: draftMarkerData.description
-    };
-
+    const newMarker = createNewMarker(draftMarkerLocation, draftMarkerData)
     const cloudKey = await saveMarker(newMarker);
 
     if (cloudKey) {
