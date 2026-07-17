@@ -6,7 +6,7 @@ import ConfirmDialog from "./ConfirmDialog.jsx";
 import BrandLogo from "./BrandLogo.jsx";
 import gearIcon from "../assets/gear.svg";
 
-function NavBar() {
+function NavBar({ activeTab = "beranda", onTabChange }) {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -47,7 +47,7 @@ function NavBar() {
 
   return (
       <header className="header1">
-        <div className="w-full mxax-w-[1214px] mx-auto px-8 flex items-center justify-between">
+        <div className="w-full max-w-[1214px] mx-auto px-8 flex items-center justify-between">
           <a
               href="/"
               className="header-title hover:opacity-85 transition-opacity"
@@ -57,6 +57,32 @@ function NavBar() {
                 imgStyle={{ width: "32px", height: "38.5px" }}
             />
           </a>
+
+          <div className="flex items-center bg-[#EAF5EF] p-1 rounded-full border border-[#DCE5E1] gap-1">
+            <button
+                type="button"
+                onClick={() => onTabChange && onTabChange("beranda")}
+                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                    activeTab === "beranda"
+                        ? "bg-white text-text2 shadow-sm"
+                        : "text-text3 hover:text-text2"
+                }`}
+            >
+              Home
+            </button>
+            <button
+                type="button"
+                onClick={() => onTabChange && onTabChange("peta")}
+                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                    activeTab === "peta"
+                        ? "bg-white text-text2 shadow-sm"
+                        : "text-text3 hover:text-text2"
+                }`}
+            >
+              Map
+            </button>
+          </div>
+
           <div className="relative bg-background w-50 rounded-[10px]" ref={menuRef}>
             <button
                 type="button"
