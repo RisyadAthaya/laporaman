@@ -17,8 +17,9 @@ import {
 import DashboardHeader from "../components/DashboardHeader.jsx";
 import MapInteractive from "../components/MapInteractive.jsx";
 import { fetchAllMarkers } from "../services/markerService.js";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createNewComment } from "../services/commentService.js";
+import { useAuth } from "../contexts/useAuth.js";
 
 const initialLongitude = 106.825;
 const initialLatitude = -6.175;
@@ -59,6 +60,15 @@ const getCategoryOfReport = (report) => {
 function Dashboard() {
 
   const location = useLocation();
+  const navigate = useNavigate();
+  const { currentUser, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !currentUser) {
+      navigate("/login", { replace: true, state: { from: location.pathname + location.search } });
+    }
+  }, [loading, currentUser, navigate, location.pathname, location.search]);
+
   const getInitialTab = () => {
     if (location.state?.activeTab) return location.state.activeTab;
     const params = new URLSearchParams(location.search);
@@ -238,6 +248,14 @@ function Dashboard() {
   };
 
   const currentReportDetail = selectedReportId ? reports.find(r => r.id === selectedReportId) : null;
+
+  if (loading || !currentUser) {
+    return (
+        <div className="min-h-screen bg-[#F5FDF9] flex items-center justify-center">
+          <p className="text-text3 text-sm font-sans">Loading...</p>
+        </div>
+    );
+  }
 
   return (
       <div className="min-h-screen bg-[#F5FDF9] flex flex-col font-sans overflow-hidden">

@@ -4,7 +4,7 @@ import { ChevronDown, LogIn, LogOut, User } from "lucide-react";
 import { useAuth } from "../contexts/useAuth.js";
 import ConfirmDialog from "./ConfirmDialog.jsx";
 import BrandLogo from "./BrandLogo.jsx";
-import gearIcon from "../assets/gear.svg";
+import dashboardIcon from "../assets/dashboard.svg";
 
 function NavBar() {
   const { currentUser, logout } = useAuth();
@@ -48,16 +48,19 @@ function NavBar() {
   return (
     <header className="header1">
       <div className="w-full mxax-w-[1214px] mx-auto px-8 flex items-center justify-between">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="header-title hover:opacity-85 transition-opacity"
         >
           <BrandLogo
             className="flex items-center gap-[6.438px]"
             imgStyle={{ width: "32px", height: "38.5px" }}
           />
-        </a>
-        <div className="relative bg-background w-50 rounded-[10px]" ref={menuRef}>
+        </Link>
+        <div
+          className="relative bg-background w-50 rounded-[10px]"
+          ref={menuRef}
+        >
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
@@ -104,12 +107,12 @@ function NavBar() {
                     type="button"
                     onClick={() => {
                       setMenuOpen(false);
-                      navigate("/settings");
+                      navigate("/dashboard");
                     }}
                     className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-left cursor-pointer bg-white hover:bg-background border-none"
                   >
-                    <img src={gearIcon} alt="Settings" className="w-4 h-4" />
-                    Settings
+                    <img src={dashboardIcon} alt="Dashboard" className="w-4 h-4" />
+                    Dashboard
                   </button>
                   <button
                     type="button"
