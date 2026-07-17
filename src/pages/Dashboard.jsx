@@ -387,29 +387,16 @@ function Dashboard() {
                     onClick={() => setActiveTab("peta")}
                     className="mt-4 md:mt-0 px-6 py-2.5 bg-main text-white font-bold rounded-full hover:bg-opacity-90 transition-all shadow-sm cursor-pointer"
                 >
-                  + Tambah laporan
+                  + Add report
                 </button>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                 <div className="lg:col-span-2 bg-white rounded-3xl border border-stroke shadow-[0_8px_30px_rgba(5,40,73,0.03)] p-6 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="text-main w-5 h-5" />
-                        <h2 className="text-lg font-bold text-text2 font-sans">Sebaran Laporan Warga Jakarta</h2>
-                      </div>
-                      <button
-                          onClick={() => setActiveTab("peta")}
-                          className="text-xs font-bold text-main hover:text-main/80 transition-colors flex items-center gap-1 cursor-pointer bg-transparent border-none"
-                      >
-                        Buka Peta Penuh <span className="text-[10px]">➔</span>
-                      </button>
-                    </div>
-
                     <div
                         onClick={() => setActiveTab("peta")}
-                        className="relative h-[380px] w-full rounded-2xl overflow-hidden bg-gray-50 border border-stroke cursor-pointer group shadow-inner"
+                        className="relative h-[380px] rounded-3xl overflow-hidden group shadow-inner"
                     >
                       <Map
                           initialViewState={{
@@ -448,27 +435,18 @@ function Dashboard() {
                         ))}
                       </Map>
 
-                      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-stroke shadow-md z-10 min-w-[170px] pointer-events-none">
-                        <p className="text-[11px] font-bold text-text2 mb-2 font-sans">Legenda Tingkat Bahaya:</p>
-                        <div className="flex flex-col gap-1.5 text-[10.5px] text-text3 font-sans">
-                          <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#FF2525]" />
-                            <span className="font-semibold text-text2">Tinggi (Bahaya)</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#FF8125]" />
-                            <span className="font-semibold text-text2">Sedang</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#23B58A]" />
-                            <span className="font-semibold text-text2">Rendah (Aman)</span>
-                          </div>
-                        </div>
+                      <div className="absolute bottom-0 -left-1 bg-white backdrop-blur-md px-6 py-4 rounded-tr-3xl z-10 pointer-events-none text-left max-w-[280px]">
+                        <h3 className="text-[15px] font-bold text-[#052849] font-sans mb-1">
+                          Interactive Map
+                        </h3>
+                        <p className="text-[10.5px] font-semibold text-text3/80 font-sans leading-normal">
+                          Click to open full map & add report
+                        </p>
                       </div>
 
                       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                         <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md text-xs font-bold text-text2 flex items-center gap-1">
-                          <span>Klik untuk Membuka Peta Penuh</span>
+                          <span>Click to open full map</span>
                           <span>➔</span>
                         </div>
                       </div>
@@ -771,7 +749,7 @@ function Dashboard() {
                           <div className="flex gap-2 items-center mt-2 bg-white border border-stroke rounded-full p-1 pl-4 focus-within:border-main focus-within:ring-1 focus-within:ring-main/20 transition-all">
                             <input
                                 type="text"
-                                placeholder="Tulis tanggapan atau beri informasi tambahan..."
+                                placeholder="Reply or add more information..."
                                 value={commentText}
                                 onChange={(e) => setCommentText(e.target.value)}
                                 onKeyDown={(e) => {
