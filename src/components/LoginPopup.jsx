@@ -16,17 +16,17 @@ function LoginPopup({ onClose }) {
         </div>
 
         <h2 className="text-size-300 font-bold text-dark m-0 mb-2">
-          Masuk Diperlukan
+          Log in Required
         </h2>
         <p className="text-[#555e72] m-0 mb-6">
-          Kamu harus masuk terlebih dahulu untuk mengakses peta lengkap.
+          You must log in beforehand to access the complete map.
         </p>
 
         <Link
           to="/login"
           className="w-full bg-main text-background no-underline font-bold rounded-lg py-2.5 mb-2.5 transition-scale"
         >
-          Masuk Sekarang
+          Login now
         </Link>
         <button
           type="button"
