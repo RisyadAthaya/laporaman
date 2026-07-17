@@ -167,12 +167,12 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                         value={
                           draftData.color === 'red' ? 'Tinggi' :
                             draftData.color === 'orange' ? 'Menengah' :
-                              draftData.color === 'yellow' ? 'Rendah' : ''
+                              draftData.color === 'green' ? 'Rendah' : ''
                         }
                         onChange={(e) => {
                           const level = e.target.value;
                           let newColor = '';
-                          if (level === 'Rendah') newColor = 'yellow';
+                          if (level === 'Rendah') newColor = 'green';
                           if (level === 'Menengah') newColor = 'orange';
                           if (level === 'Tinggi') newColor = 'red';
                           setDraftData({ ...draftData, color: newColor, dangerLevel: level });
