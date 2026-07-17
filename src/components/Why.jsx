@@ -9,25 +9,25 @@ const features = [
   {
     id: 'feat-1',
     title: 'Instant Reporting',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'Report incidents, road hazards, or infrastructure damage quickly and in real-time directly from your device.',
     image: image1
   },
   {
     id: 'feat-2',
     title: 'Early Risk Detection',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'Help identify and map potential hazards early before they escalate into major issues or accidents.',
     image: image2
   },
   {
     id: 'feat-3',
     title: 'Community Collaboration',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'Build a safer road environment by sharing information and working together with fellow road users for the comfort and safety of everyone.',
     image: image3
   },
   {
     id: 'feat-4',
     title: 'Anonymous & Protected',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'Report with peace of mind. Your personal identity is kept strictly confidential, and all submitted data is secured with strong protection measures.',
     image: image4
   }
 ]
