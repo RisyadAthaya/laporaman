@@ -50,30 +50,71 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
             {isEditing ? (
               <>
                 {draftLocation ? (
-                  <div className="flex flex-col gap-2 p-2 min-w-40">
+                  <div className="flex flex-col gap-3 p-2 min-w-40">
                     <input
                       type="text"
                       placeholder="Title"
-                      value={draftData.title}
+                      value={draftData.title || ''}
                       onChange={(e) => setDraftData({ ...draftData, title: e.target.value })}
-                      className="p-1"
+                      className="p-1 border border-gray-300 rounded"
                     />
                     <textarea
                       placeholder="Description"
-                      value={draftData.description}
+                      value={draftData.description || ''}
                       onChange={(e) => setDraftData({ ...draftData, description: e.target.value })}
-                      className="p-1 resize-y"
+                      className="p-1 border border-gray-300 rounded resize-y"
                     />
-                    <div className="flex items-center gap-2">
-                      <label className="text-xs">Color:</label>
-                      <input
-                        type="color"
-                        value={draftData.color}
-                        onChange={(e) => setDraftData({ ...draftData, color: e.target.value })}
-                        className="cursor-pointer p-0 border-0 h-6"
-                      />
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold">Tingkat Bahaya:</label>
+                      <select
+                        value={
+                          draftData.color === 'red' ? 'Tinggi' :
+                            draftData.color === 'orange' ? 'Menengah' :
+                              draftData.color === 'yellow' ? 'Rendah' : ''
+                        }
+                        onChange={(e) => {
+                          const level = e.target.value;
+                          let newColor = '';
+                          if (level === 'Rendah') newColor = 'yellow';
+                          if (level === 'Menengah') newColor = 'orange';
+                          if (level === 'Tinggi') newColor = 'red';
+                          setDraftData({ ...draftData, color: newColor, dangerLevel: level });
+                        }}
+                        className="p-1 border border-gray-300 rounded"
+                      >
+                        <option value="" disabled>Pilih tingkat bahaya</option>
+                        <option value="Rendah">Rendah</option>
+                        <option value="Menengah">Menengah</option>
+                        <option value="Tinggi">Tinggi</option>
+                      </select>
                     </div>
-                    <button onClick={handleSaveDraft} className="button-300 text-white bg-green-700">
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold">Kategori Laporan:</label>
+                      <select
+                        value={draftData.category || ''}
+                        onChange={(e) => setDraftData({ ...draftData, category: e.target.value })}
+                        className="p-1 border border-gray-300 rounded"
+                      >
+                        <option value="" disabled>Pilih kategori</option>
+                        <option value="Kecelakaan">Kecelakaan</option>
+                        <option value="Begal">Begal</option>
+                        <option value="Kerusakan Infrastruktur">Kerusakan Infrastruktur</option>
+                        <option value="Lainnya">Lainnya</option>
+                      </select>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        const currentTime = new Date().toLocaleString();
+                        setDraftData(prevData => ({ ...prevData, time: currentTime }));
+                        // Using a brief timeout ensures the state update has time to process
+                        // before the parent's handleSaveDraft function is executed.
+                        setTimeout(() => handleSaveDraft(), 0);
+                      }}
+                      className="button-300 text-white bg-green-700 mt-2 py-1 rounded"
+                    >
                       Save
                     </button>
                   </div>

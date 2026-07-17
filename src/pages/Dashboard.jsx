@@ -18,142 +18,12 @@ import DashboardHeader from "../components/DashboardHeader.jsx";
 import MapInteractive from "../components/MapInteractive.jsx";
 import { fetchAllMarkers } from "../services/markerService.js";
 import { useLocation } from "react-router-dom";
+import { createNewComment } from "../services/commentService.js";
 
-const initialLongitude = 106.828;
-const initialLatitude = -6.222;
+const initialLongitude = 106.825;
+const initialLatitude = -6.175;
 
-// TODO: Ganti DEFAULT_PREVIEW_PINS sama INITIAL_REPORTS pake data asli
-
-const DEFAULT_PREVIEW_PINS = [
-  { key: 'p1', longitude: 106.818, latitude: -6.215, color: '#FF8125', title: 'Kerusakan Jalan Karet', description: 'Jalan berlubang besar di sekitar Karet Tengsin.' },
-  { key: 'p2', longitude: 106.824, latitude: -6.208, color: '#FF2525', title: 'Lampu Jalan Guntur', description: 'Lampu penerangan jalan utama padam total.' },
-  { key: 'p3', longitude: 106.852, latitude: -6.222, color: '#23B58A', title: 'Kebersihan Sampah Cikoko', description: 'Tumpukan sampah liar di trotoar Cikoko.' },
-  { key: 'p4', longitude: 106.804, latitude: -6.228, color: '#FF2525', title: 'Keamanan Begal Selong', description: 'Rawan tindakan kriminalitas pada malam hari.' },
-  { key: 'p5', longitude: 106.838, latitude: -6.242, color: '#FF8125', title: 'Banjir Luapan Cawang', description: 'Bencana banjir genangan air pasca hujan.' }
-];
-
-const INITIAL_REPORTS = [
-  {
-    id: "REP-001",
-    title: "Jalan Berlubang Besar & Membahayakan",
-    description: "Ada lubang diameter sekitar 1 meter dengan kedalaman 15cm di tengah jalan utama. Sudah memakan korban beberapa pengendara motor terjatuh di malam hari karena minim penerangan jalan.",
-    locationName: "Jl. Jenderal Sudirman Kav 21, Karet Kuningan",
-    latitude: -6.215,
-    longitude: 106.818,
-    category: "Kerusakan Infrastruktur",
-    dangerLevel: "Tinggi",
-    status: "Diproses",
-    likes: 42,
-    comments: [
-      {
-        author: "Sistem Lapor",
-        text: "Laporan telah diverifikasi dan diteruskan ke Dinas Pekerjaan Umum DKI Jakarta.",
-        time: "2026-07-15 10:15"
-      },
-      {
-        author: "Dinas PU DKI",
-        text: "Petugas survei lapangan sedang meluncur ke lokasi untuk penambalan sementara malam ini.",
-        time: "2026-07-15 14:00"
-      }
-    ],
-    time: "2026-07-15 08:30"
-  },
-  {
-    id: "REP-002",
-    title: "Lampu Penerangan Jalan Mati Total",
-    description: "Sepanjang jalur flyover lampu PJU mati total sejak 3 hari lalu. Kondisi gelap gulita ini sangat rawan aksi begal dan kecelakaan lalu lintas.",
-    locationName: "Flyover Kuningan Timur, Mampang Prapatan",
-    latitude: -6.208,
-    longitude: 106.824,
-    category: "Lampu Jalan Mati",
-    dangerLevel: "Sedang",
-    status: "Menunggu",
-    likes: 18,
-    comments: [
-      {
-        author: "Sistem Lapor",
-        text: "Laporan diterima dan sedang mengantre untuk proses verifikasi oleh tim teknis terkait.",
-        time: "2026-07-16 09:12"
-      }
-    ],
-    time: "2026-07-16 08:00"
-  },
-  {
-    id: "REP-003",
-    title: "Penumpukan Sampah Liar Menyumbat Selokan",
-    description: "Tumpukan sampah plastik dan limbah rumah tangga dibuang sembarangan di pinggir selokan. Saat hujan deras kemarin air meluap hingga menggenangi jalan raya setinggi 20cm.",
-    locationName: "Jl. Tebet Barat Raya No. 45, Tebet",
-    latitude: -6.222,
-    longitude: 106.852,
-    category: "Kebersihan & Sampah",
-    dangerLevel: "Sedang",
-    status: "Selesai",
-    likes: 29,
-    comments: [
-      {
-        author: "Sistem Lapor",
-        text: "Laporan diteruskan ke Dinas Kebersihan dan Lingkungan Hidup kecamatan setempat.",
-        time: "2026-07-14 11:30"
-      },
-      {
-        author: "Dinas LH DKI",
-        text: "Petugas kebersihan telah dikerahkan ke lokasi dan saluran air kini telah dibersihkan sepenuhnya.",
-        time: "2026-07-15 16:45"
-      }
-    ],
-    time: "2026-07-14 10:00"
-  },
-  {
-    id: "REP-004",
-    title: "Aksi Pemalakan Liar di JPO",
-    description: "Sering ada kelompok pemuda mencurigakan meminta uang paksa kepada pejalan kaki yang melintasi Jembatan Penyeberangan Orang (JPO) halte TransJakarta di sore/malam hari.",
-    locationName: "JPO Halte Gatot Subroto LIPI",
-    latitude: -6.228,
-    longitude: 106.804,
-    category: "Keamanan & Kriminalitas",
-    dangerLevel: "Tinggi",
-    status: "Diproses",
-    likes: 56,
-    comments: [
-      {
-        author: "Sistem Lapor",
-        text: "Laporan diteruskan ke Satpol PP dan Polsek setempat untuk patroli pengamanan.",
-        time: "2026-07-15 19:30"
-      },
-      {
-        author: "Polsek Setempat",
-        text: "Patroli berkala mulai dijadwalkan di area JPO tersebut terutama pada jam rawan sore hari.",
-        time: "2026-07-16 10:00"
-      }
-    ],
-    time: "2026-07-15 18:00"
-  },
-  {
-    id: "REP-005",
-    title: "Pohon Rimbun Nyaris Tumbang Mengenai Kabel",
-    description: "Pohon peneduh jalan condong ke arah jalan raya sekitar 45 derajat dan rantingnya menindih kabel listrik PLN bertegangan tinggi. Khawatir roboh saat hujan badai.",
-    locationName: "Jl. K.H. Mas Mansyur, Tanah Abang",
-    latitude: -6.242,
-    longitude: 106.838,
-    category: "Bencana Alam & Banjir",
-    dangerLevel: "Sedang",
-    status: "Selesai",
-    likes: 12,
-    comments: [
-      {
-        author: "Sistem Lapor",
-        text: "Laporan diteruskan ke Dinas Kehutanan dan Pemadam Kebakaran.",
-        time: "2026-07-13 15:00"
-      },
-      {
-        author: "Dinas Pertamanan DKI",
-        text: "Pemangkasan ranting pohon bermasalah telah diselesaikan oleh tim hijau di lapangan.",
-        time: "2026-07-14 13:15"
-      }
-    ],
-    time: "2026-07-13 14:00"
-  }
-];
+const INITIAL_REPORTS = [];
 
 const mapColorToTheme = (color) => {
   const c = color ? color.toLowerCase() : '';
@@ -274,7 +144,7 @@ function Dashboard() {
     description: pin.description || 'No description provided.'
   })).filter(pin => !isNaN(pin.longitude) && !isNaN(pin.latitude));
 
-  const allPins = [...DEFAULT_PREVIEW_PINS, ...dbPinsMapped];
+  const allPins = [...dbPinsMapped];
 
   const categoryCounts = {
     'Kerusakan Infrastruktur': 0,
@@ -354,11 +224,7 @@ function Dashboard() {
   const handleAddComment = (reportId) => {
     if (!commentText.trim()) return;
 
-    const newComment = {
-      author: "Warga (Anonymous)",
-      text: commentText.trim(),
-      time: new Date().toISOString().replace('T', ' ').substring(0, 16)
-    };
+    const newComment = createNewComment(commentText);
 
     setCommentsState(prev => ({
       ...prev,
@@ -580,9 +446,6 @@ function Dashboard() {
                             >
                               <div>
                                 <div className="flex justify-between items-center mb-3">
-                              <span className="text-[11px] font-bold text-text3/40 tracking-wider font-mono">
-                                {report.id}
-                              </span>
                                   <div className="flex gap-1.5">
                                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${dangerColorClass}`}>
                                   Darurat: {report.dangerLevel}
