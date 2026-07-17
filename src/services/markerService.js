@@ -32,3 +32,13 @@ export const fetchAllMarkers = async () => {
     return [];
   }
 };
+
+export const createNewMarker = (draftMarkerLocation, draftMarkerData) => {
+  return {
+    longitude: draftMarkerLocation.longitude,
+    latitude: draftMarkerLocation.latitude,
+    color: draftMarkerData.color,
+    title: draftMarkerData.title || "Untitled Marker",
+    description: draftMarkerData.description
+  }
+}
