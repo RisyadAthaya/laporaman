@@ -1,3 +1,5 @@
+import warningSign from "../assets/warningsign.svg"
+
 function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedMarkerKey, markersDatabase,
                        draftLocation, draftData, setDraftData, handleSaveDraft }) {
 
@@ -32,14 +34,15 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                   </div>
                 ) : (
                   <div className="flex h-full text-center items-center justify-center">
-                    <p className="text-xs font-bold text-text3">Click a marker to see the details!</p>
+                    <p className="text-s font-bold text-text3">Click a marker to see the details!</p>
                   </div>
                 )}
               </>
             ) : (
-              <div className="flex h-full text-center items-center justify-center">
+              <div className="flex flex-col h-full text-center items-center justify-center gap-4">
                 {/*Warn that they're in edit mode when in edit mode*/}
-                <p className="text-xs font-bold text-text3">You're currently in edit mode!<br/>Switch back to view mode to see the detail of this marker.</p>
+                <img src={warningSign}  alt="Warning sign" className="w-12 opacity-20"/>
+                <p className="text-s font-bold text-text3">You're currently in edit mode!<br/>Switch back to view mode to see the detail of this marker.</p>
               </div>
             )}
           </>
@@ -50,7 +53,6 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                 {/* 3. Show the input popup if there is a draft, otherwise show Hello World */}
                 {draftLocation ? (
                   <div className="flex flex-col gap-2 p-2 min-w-40">
-                    <h4>New Marker</h4>
                     <input
                       type="text"
                       placeholder="Title"
@@ -79,15 +81,16 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                   </div>
                 ) : (
                   <div className="flex h-full text-center items-center justify-center">
-                    <p className="text-xs font-bold text-text3">Click a location to start reporting!</p>
+                    <p className="text-s font-bold text-text3">Click a location to start reporting!</p>
                   </div>
                 )}
               </>
             ) : (
               <>
-                <div className="flex h-full text-center items-center justify-center">
+                <div className="flex flex-col h-full text-center items-center justify-center gap-4">
                   {/*Warn that they're not in edit mode*/}
-                  <p className="text-xs font-bold text-text3">You're currently in view mode!<br/>Switch to edit mode to report an incident.</p>
+                  <img src={warningSign}  alt="Warning sign" className="w-12 opacity-20"/>
+                  <p className="text-s font-bold text-text3">You're currently in view mode!<br/>Switch to edit mode to report an incident.</p>
                 </div>
               </>
             )}
