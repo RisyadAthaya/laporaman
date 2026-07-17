@@ -71,7 +71,7 @@ function MapInteractive() {
     setDetailsSectionSelected(false)
     setReportError(null)
     setDraftMarkerLocation({ longitude: lng, latitude: lat })
-    setDraftMarkerData({ title: "", description: "", color: "#000000" })
+    setDraftMarkerData({ title: "", description: "", color: "#000000", category: "", dangerLevel: "" })
 
     if (currentUser) {
       getReportsRemainingToday(currentUser.uid).then(setReportsRemainingToday);

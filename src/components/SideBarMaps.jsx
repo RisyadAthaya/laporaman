@@ -1,5 +1,5 @@
 import warningSign from "../assets/warningsign.svg"
-import { LocateFixed, Crosshair, MapPin } from "lucide-react"
+import {LocateFixed, Crosshair, MapPin, Clock} from "lucide-react"
 import { formatDistance } from "../utils/geo.js"
 
 function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedMarkerKey, markersDatabase,
@@ -32,15 +32,48 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
               <>
                 {activeMarker ? (
                   <div key={activeMarker.key}>
-                    <h3>{activeMarker.title}</h3>
-                    <p>{activeMarker.description}</p>
-                    <p>{activeMarker.upvotes}</p>
-                    {/*locationName: "-",*/}
-                    {/*time: new Date().toISOString().replace('T', ' ').substring(0, 16),*/}
-                    {/*category: "",*/}
-                    {/*dangerLevel: "",*/}
-                    {/*status: "Menunggu",*/}
-                    {/*upvotes: 0,*/}
+                    <div className="p-6 overflow-y-auto flex-grow flex flex-col gap-5">
+
+                      <div className="flex flex-wrap gap-2">
+                        <span className="text-[11px] font-bold px-3 py-1 bg-emerald-50 text-[#028F65] rounded-full border border-emerald-100">
+                          {activeMarker.category}
+                        </span>
+                        <span className={`text-[11px] font-bold px-3 py-1 rounded-full border ${
+                          activeMarker.dangerLevel === "Tinggi"
+                            ? "bg-red-50 text-red-600 border-red-100"
+                            : activeMarker.dangerLevel === "Sedang"
+                              ? "bg-amber-50 text-amber-600 border-amber-100"
+                              : "bg-teal-50 text-teal-600 border-teal-100"
+                        }`}>
+                          Danger: {activeMarker.dangerLevel}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h2 className="text-xl font-bold text-text2 leading-tight font-sans">
+                          {activeMarker.title}
+                        </h2>
+                        <p className="text-[11px] text-text3/50 mt-1.5 font-sans">
+                          Dilaporkan oleh <span className="font-semibold text-text3/80">Anonymous</span> • <Clock className="w-3 h-3 inline ml-0.5 mr-0.5" /> {activeMarker.time}
+                        </p>
+                      </div>
+
+                      <div className="bg-[#F3FAF6] border border-stroke/40 p-5 rounded-2xl text-[13px] text-text3 leading-relaxed font-sans shadow-inner">
+                        {activeMarker.description}
+                      </div>
+
+                      <div className="border border-stroke/70 bg-white p-4 rounded-xl font-sans">
+                        <span className="text-xs font-bold text-text2 flex items-center gap-1.5 mb-2 uppercase tracking-wide">
+                          <MapPin className="w-4 h-4 text-red-500" /> Titik Penanganan Lokasi
+                        </span>
+                        <p className="text-xs font-semibold text-text2 mb-1 pl-5">
+                          {activeMarker.locationName}
+                        </p>
+                        <p className="text-[10px] text-text3/50 font-mono pl-5">
+                          Koordinat: Lat {Number(activeMarker.latitude).toFixed(4)}, Lng {Number(activeMarker.longitude).toFixed(4)}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-col h-full gap-4">
@@ -166,14 +199,14 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                       <select
                         value={
                           draftData.color === 'red' ? 'Tinggi' :
-                            draftData.color === 'orange' ? 'Menengah' :
+                            draftData.color === 'orange' ? 'Sedang' :
                               draftData.color === 'green' ? 'Rendah' : ''
                         }
                         onChange={(e) => {
                           const level = e.target.value;
                           let newColor = '';
                           if (level === 'Rendah') newColor = 'green';
-                          if (level === 'Menengah') newColor = 'orange';
+                          if (level === 'Sedang') newColor = 'orange';
                           if (level === 'Tinggi') newColor = 'red';
                           setDraftData({ ...draftData, color: newColor, dangerLevel: level });
                         }}
@@ -181,7 +214,7 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                       >
                         <option value="" disabled>Pilih tingkat bahaya</option>
                         <option value="Rendah">Rendah</option>
-                        <option value="Menengah">Menengah</option>
+                        <option value="Sedang">Sedang</option>
                         <option value="Tinggi">Tinggi</option>
                       </select>
                     </div>
