@@ -21,3 +21,36 @@ export const formatDistance = (km) => {
   }
   return `${km.toFixed(1)} km`;
 };
+
+export const createGeoJSONCircle = (latitude, longitude, radiusKm, points = 64) => {
+  const coordinates = [];
+  const distanceX = radiusKm / (111.32 * Math.cos(toRadians(latitude)));
+  const distanceY = radiusKm / 110.574;
+
+  for (let i = 0; i < points; i++) {
+    const angle = (i / points) * 2 * Math.PI;
+    coordinates.push([
+      longitude + distanceX * Math.cos(angle),
+      latitude + distanceY * Math.sin(angle)
+    ]);
+  }
+  coordinates.push(coordinates[0]);
+
+  return {
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [coordinates]
+    }
+  };
+};
+
+export const getBoundsForRadius = (latitude, longitude, radiusKm) => {
+  const distanceX = radiusKm / (111.32 * Math.cos(toRadians(latitude)));
+  const distanceY = radiusKm / 110.574;
+
+  return [
+    [longitude - distanceX, latitude - distanceY],
+    [longitude + distanceX, latitude + distanceY]
+  ];
+};
