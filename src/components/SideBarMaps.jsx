@@ -34,6 +34,13 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                   <div key={activeMarker.key}>
                     <h3>{activeMarker.title}</h3>
                     <p>{activeMarker.description}</p>
+                    <p>{activeMarker.upvotes}</p>
+                    {/*locationName: "-",*/}
+                    {/*time: new Date().toISOString().replace('T', ' ').substring(0, 16),*/}
+                    {/*category: "",*/}
+                    {/*dangerLevel: "",*/}
+                    {/*status: "Menunggu",*/}
+                    {/*upvotes: 0,*/}
                   </div>
                 ) : (
                   <div className="flex flex-col h-full gap-4">
@@ -144,12 +151,14 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                       value={draftData.title || ''}
                       onChange={(e) => setDraftData({ ...draftData, title: e.target.value })}
                       className="p-1 border border-gray-300 rounded"
+                      required
                     />
                     <textarea
                       placeholder="Description"
                       value={draftData.description || ''}
                       onChange={(e) => setDraftData({ ...draftData, description: e.target.value })}
                       className="p-1 border border-gray-300 rounded resize-y"
+                      required
                     />
 
                     <div className="flex flex-col gap-1">
@@ -188,9 +197,11 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                         className="p-1 border border-gray-300 rounded"
                       >
                         <option value="" disabled>Pilih kategori</option>
-                        <option value="Kecelakaan">Kecelakaan</option>
-                        <option value="Begal">Begal</option>
                         <option value="Kerusakan Infrastruktur">Kerusakan Infrastruktur</option>
+                        <option value="Lampu Jalan Mati">Lampu Jalan Mati</option>
+                        <option value="Kebersihan & Sampah">Kebersihan & Sampah</option>
+                        <option value="Keamanan & Kriminalitas">Keamanan & Kriminalitas</option>
+                        <option value="Bencana Alam & Banjir">Bencana Alam & Banjir</option>
                         <option value="Lainnya">Lainnya</option>
                       </select>
                     </div>
