@@ -8,7 +8,6 @@ import SideBarMaps from "./SideBarMaps.jsx";
 const initialLongitude = 106.825;
 const initialLatitude = -6.175;
 
-// Fungsi untuk menyeragamkan warna marker sesuai tema
 const mapColorToTheme = (color) => {
   const c = color ? color.toLowerCase() : '';
   if (c.includes('red') || c === '#ff2525' || c === '#e53935' || c === '#ff0000') {
@@ -17,7 +16,7 @@ const mapColorToTheme = (color) => {
   if (c.includes('green') || c === '#23b58a' || c === '#00ff00' || c === '#028f65') {
     return '#23B58A';
   }
-  return '#FF8125'; // Default ke oranye
+  return '#FF8125';
 };
 
 function MapInteractive() {
@@ -28,7 +27,6 @@ function MapInteractive() {
   const [draftMarkerLocation, setDraftMarkerLocation] = useState(null)
   const [draftMarkerData, setDraftMarkerData] = useState(null)
 
-  // Fetch the markers data
   useEffect(() => {
     const loadMarkers = async () => {
       const data = await fetchAllMarkers();
@@ -74,7 +72,7 @@ function MapInteractive() {
   }
 
   return (
-      <div className="flex flex-row w-full h-screen relative">
+      <div className="flex flex-row w-full h-full relative">
         <div className="w-full h-full relative">
           <button
               type="button"
@@ -85,11 +83,9 @@ function MapInteractive() {
               style={{
                 backgroundColor: isEditMode ? '#E53935' : '#008236'
               }}
-              className="absolute font-bold cursor-pointer text-white w-16 h-16 rounded-full bottom-11 right-3 z-10 transition-all duration-100"
+              className="absolute font-bold cursor-pointer text-white w-16 h-16 rounded-full bottom-11 right-3 z-10 transition-all duration-100 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg"
           >
-            <div className="flex items-center justify-center">
-              <Plus className="h-8 w-8 stroke-[3px]" />
-            </div>
+            <Plus className="h-8 w-8 stroke-[3px]" />
           </button>
           <Map
               initialViewState={{
@@ -101,9 +97,7 @@ function MapInteractive() {
               onClick={mapHandleClick}
           >
 
-            {/*Load the markers contained in the database*/}
             {markers.map((marker) => {
-              // Terapkan fungsi pemetaan warna di sini
               const markerColor = mapColorToTheme(marker.color);
 
               return (
@@ -116,13 +110,12 @@ function MapInteractive() {
                         if (!isEditMode) setActivePopupKey(marker.key);
                       }}
                   >
-                    {/* Desain custom marker disematkan di sini */}
-                    <div className="relative flex items-center justify-center cursor-pointer">
+                    <div className="relative flex items-center justify-center cursor-pointer animate-scale-in">
                       <div
-                          className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(0,0,0,0.15)]"
+                          className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(0,0,0,0.15)] hover:scale-125 transition-transform duration-200"
                           style={{
-                            width: '12px',
-                            height: '12px',
+                            width: '16px',
+                            height: '16px',
                             backgroundColor: markerColor,
                           }}
                       />
@@ -147,4 +140,4 @@ function MapInteractive() {
   )
 }
 
-export default MapInteractive
+export default MapInteractive;
