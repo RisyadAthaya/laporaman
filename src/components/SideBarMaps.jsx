@@ -89,6 +89,9 @@ function SideBarMaps({ detailsSelected, setDetailsSelected, isEditing, selectedM
                         <option value="Tinggi">Tinggi</option>
                       </select>
                     </div>
+                    {reportError && (
+                      <p className="text-xs font-semibold text-red-600">{reportError}</p>
+                    )}
 
                     <div className="flex flex-col gap-1">
                       <label className="text-xs font-semibold">Kategori Laporan:</label>

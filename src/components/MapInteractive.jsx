@@ -2,7 +2,8 @@ import { Map, Marker } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState, useEffect } from 'react'
 import { Plus, Loader2 } from 'lucide-react'
-import { saveMarker, fetchAllMarkers, createNewMarker } from '../services/markerService.js'
+import { saveMarker, fetchAllMarkers, createNewMarker, getReportCooldownRemaining } from '../services/markerService.js'
+import { useAuth } from '../contexts/useAuth.js'
 import SideBarMaps from "./SideBarMaps.jsx";
 
 const initialLongitude = 106.825;
@@ -20,6 +21,7 @@ const mapColorToTheme = (color) => {
 };
 
 function MapInteractive() {
+  const { currentUser } = useAuth()
   const [detailsSectionSelected, setDetailsSectionSelected] = useState(true)
   const [markers, setMarkers] = useState([]);
   const [activePopupKey, setActivePopupKey] = useState(null)
@@ -27,6 +29,8 @@ function MapInteractive() {
   const [draftMarkerLocation, setDraftMarkerLocation] = useState(null)
   const [draftMarkerData, setDraftMarkerData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [cooldownRemaining, setCooldownRemaining] = useState(0)
+  const [reportError, setReportError] = useState(null)
 
   useEffect(() => {
     const loadMarkers = async () => {
@@ -39,6 +43,16 @@ function MapInteractive() {
     loadMarkers();
   }, []);
 
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return;
+
+    const timer = setInterval(() => {
+      setCooldownRemaining((previous) => Math.max(0, previous - 1));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldownRemaining]);
+
   const mapHandleClick = (e) => {
     if (!isEditMode) {
       setActivePopupKey(null)
@@ -46,25 +60,42 @@ function MapInteractive() {
     }
 
     setDetailsSectionSelected(false)
+    setReportError(null)
     const { lng, lat } = e.lngLat
     setDraftMarkerLocation({ longitude: lng, latitude: lat })
     setDraftMarkerData({ title: "", description: "", color: "#000000" })
+
+    if (currentUser) {
+      getReportCooldownRemaining(currentUser.uid).then(setCooldownRemaining);
+    }
   }
 
   const handleSaveDraftMarker = async () => {
-    if (!draftMarkerLocation) return;
+    if (!draftMarkerLocation || !currentUser) return;
+
+    if (cooldownRemaining > 0) {
+      setReportError(`You're reporting too fast — please wait ${cooldownRemaining}s before submitting another report.`);
+      return;
+    }
 
     setIsLoading(true);
-    const newMarker = createNewMarker(draftMarkerLocation, draftMarkerData)
-    const cloudKey = await saveMarker(newMarker);
+    setReportError(null);
 
-    if (cloudKey) {
+    try {
+      const newMarker = createNewMarker(draftMarkerLocation, draftMarkerData)
+      const cloudKey = await saveMarker(newMarker, currentUser.uid);
+
       setMarkers((previousMarkers) => [
         ...previousMarkers,
         { ...newMarker, key: cloudKey }
       ]);
       setDraftMarkerLocation(null);
       setDraftMarkerData(null);
+      setCooldownRemaining(0);
+    } catch (error) {
+      setReportError(error.message);
+      const remaining = await getReportCooldownRemaining(currentUser.uid);
+      setCooldownRemaining(remaining);
     }
 
     setIsLoading(false);
@@ -140,6 +171,8 @@ function MapInteractive() {
           draftData={draftMarkerData}
           setDraftData={setDraftMarkerData}
           handleSaveDraft={handleSaveDraftMarker}
+          cooldownRemaining={cooldownRemaining}
+          reportError={reportError}
       />
     </div>
   )
