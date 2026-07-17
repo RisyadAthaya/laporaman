@@ -48,15 +48,15 @@ function NavBar({ activeTab = "beranda", onTabChange }) {
   return (
       <header className="header1">
         <div className="w-full max-w-[1214px] mx-auto px-8 flex items-center justify-between">
-          <a
-              href="/"
-              className="header-title hover:opacity-85 transition-opacity"
+          <Link
+            to="/"
+            className="header-title hover:opacity-85 transition-opacity"
           >
             <BrandLogo
-                className="flex items-center gap-[6.438px]"
-                imgStyle={{ width: "32px", height: "38.5px" }}
+              className="flex items-center gap-[6.438px]"
+              imgStyle={{ width: "32px", height: "38.5px" }}
             />
-          </a>
+          </Link>
 
           <div className="flex items-center bg-[#EAF5EF] p-1 rounded-full border border-[#DCE5E1] gap-1">
             <button
