@@ -41,7 +41,7 @@ function MapRestricted({ onShowLogin }) {
         const data = await fetchAllMarkers();
         setDbPinpoints(data || []);
       } catch (error) {
-        console.error("Gagal mengambil data marker", error);
+        console.error("Failed to take marker data", error);
       }
     };
 
@@ -99,16 +99,16 @@ function MapRestricted({ onShowLogin }) {
         <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
           <div className="flex items-center gap-2 mb-4 bg-[#23B58A]/10 px-3 py-1.5 rounded-full">
             <span className="w-2.5 h-2.5 rounded-full bg-[#23B58A] animate-pulse"></span>
-            <span className="text-text2 font-bold text-xs tracking-wider font-sans uppercase">Lorem Ipsum</span>
+            <span className="text-text2 font-bold text-xs tracking-wider font-sans uppercase">Interactive Map</span>
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-text2 m-0 mb-4 leading-[1.1] font-sans tracking-tight">
-            Adalah,<br />
-            <span className="text-text1">Pokoknya.</span>
+            Try it<br />
+            <span className="text-text1">Yourself!</span>
           </h2>
 
           <p className="text-sm md:text-base text-text3 m-0 mb-8 leading-relaxed max-w-md font-sans">
-            Lorem Ipsum
+            Submit a report or browse the map in real-time.
           </p>
 
           <div className="flex items-center gap-4">

@@ -63,7 +63,7 @@ function FeatureCard({ item, delay }) {
       >
         <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-            style={{ backgroundImage: `url(${item.image})` }} // [DIUBAH] Menggunakan `item.image` dari objek di array, bukan `bostonImage`
+            style={{ backgroundImage: `url(${item.image})` }}
         />
 
         <div className={`absolute inset-0 transition-all duration-300 ${

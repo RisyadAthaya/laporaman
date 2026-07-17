@@ -126,14 +126,14 @@ function Dashboard() {
 
       return {
         id,
-        title: pin.title || 'Laporan Baru',
-        description: pin.description || 'Tidak ada deskripsi tambahan.',
+        title: pin.title || 'New report',
+        description: pin.description || 'No additional description..',
         locationName: pin.locationName || `Jakarta (Lat: ${Number(pin.latitude).toFixed(3)}, Lng: ${Number(pin.longitude).toFixed(3)})`,
         latitude: Number(pin.latitude),
         longitude: Number(pin.longitude),
         category: category,
         dangerLevel: danger,
-        status: pin.status || 'Menunggu',
+        status: pin.status || 'Waiting',
         likes: likesState[id] !== undefined ? likesState[id] : baseLikes,
         comments: [
           ...baseComments,
@@ -342,8 +342,8 @@ function Dashboard() {
 
                 <div className="bg-white rounded-3xl border border-stroke shadow-[0_8px_30px_rgba(5,40,73,0.03)] p-6 flex flex-col justify-between">
                   <div>
-                    <h2 className="text-lg font-bold text-text2 font-sans mb-0.5">Distribusi Laporan</h2>
-                    <p className="text-[11px] text-text3/80 font-sans mb-5">Jumlah keluhan berdasarkan klasifikasi kategori</p>
+                    <h2 className="text-lg font-bold text-text2 font-sans mb-0.5">Reports distribution</h2>
+                    <p className="text-[11px] text-text3/80 font-sans mb-5">Summary of reports by category</p>
 
                     <div className="flex flex-col gap-4">
                       {categoriesList.map((cat) => {
@@ -433,19 +433,19 @@ function Dashboard() {
                 {filteredReports.length === 0 ? (
                     <div className="text-center py-16 bg-[#F8FDFB] rounded-2xl border border-dashed border-stroke/80">
                       <AlertTriangle className="w-10 h-10 text-text3/40 mx-auto mb-3" />
-                      <p className="text-text2 font-bold text-sm mb-1">Tidak ada laporan ditemukan</p>
-                      <p className="text-text3/60 text-xs">Coba ubah filter atau kata kunci pencarian Anda.</p>
+                      <p className="text-text2 font-bold text-sm mb-1">No report found.</p>
+                      <p className="text-text3/60 text-xs">Try changing your filters or search keywords.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {filteredReports.map((report) => {
-                        const isDangerHigh = report.dangerLevel === "Tinggi";
-                        const isDangerMedium = report.dangerLevel === "Sedang";
+                        const isDangerHigh = report.dangerLevel === "High";
+                        const isDangerMedium = report.dangerLevel === "Medium";
 
                         const statusColorClass =
-                            report.status === "Selesai"
+                            report.status === "Done"
                                 ? "bg-emerald-50 text-emerald-700 border-emerald-100"
-                                : report.status === "Diproses"
+                                : report.status === "On process"
                                     ? "bg-sky-50 text-sky-700 border-sky-100"
                                     : "bg-amber-50 text-amber-700 border-amber-100";
 
@@ -466,7 +466,7 @@ function Dashboard() {
                                 <div className="flex justify-between items-center mb-3">
                                   <div className="flex gap-1.5">
                                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${dangerColorClass}`}>
-                                  Darurat: {report.dangerLevel}
+                                  Danger: {report.dangerLevel}
                                 </span>
                                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${statusColorClass}`}>
                                   {report.status}
@@ -562,7 +562,7 @@ function Dashboard() {
                                       ? "bg-amber-50 text-amber-600 border-amber-100"
                                       : "bg-teal-50 text-teal-600 border-teal-100"
                           }`}>
-                          Darurat: {currentReportDetail.dangerLevel}
+                          Danger: {currentReportDetail.dangerLevel}
                         </span>
                         </div>
 
@@ -593,13 +593,13 @@ function Dashboard() {
 
                         <div className="mt-2 font-sans">
                         <span className="text-xs font-bold text-text2 flex items-center gap-1.5 mb-3.5 uppercase tracking-wide">
-                          <MessageSquare className="w-4 h-4 text-main" /> Kolaborasi & Masukan Warga ({currentReportDetail.comments.length})
+                          <MessageSquare className="w-4 h-4 text-main" /> Community Collaboration & Feedback ({currentReportDetail.comments.length})
                         </span>
 
                           <div className="flex flex-col gap-3 mb-4">
                             {currentReportDetail.comments.length === 0 ? (
                                 <p className="text-xs text-text3/50 italic py-3 text-center bg-gray-50 rounded-xl">
-                                  Belum ada tanggapan. Jadilah yang pertama memberikan masukan!
+                                  No feedback yet. Be the first to provide your input!
                                 </p>
                             ) : (
                                 currentReportDetail.comments.map((comment, cIdx) => {
