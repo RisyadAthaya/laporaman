@@ -5,27 +5,22 @@ const faqs = [
   {
     id: 'faq-1',
     question: 'How do I report a dangerous waypoint?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    answer: "Log in, open the map, and tap the spot on the map where the danger is. Give it a short title, a description, and mark how serious it is (low, medium, or high risk), then submit. That's it — your report appears on the map for others to see. To keep things fair, you can submit up to 5 reports per day."
   },
   {
     id: 'faq-2',
     question: 'Will my report be acted upon by the authorities?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    answer: "Each report shows a status — Waiting, In Progress, or Done — so you can see how things are moving. Other residents and, where available, local officials can also leave comments on your report, and reports that get more support from the community tend to stand out more."
   },
   {
     id: 'faq-3',
-    question: "Is the whistleblower's identity guaranteed to be safe and confidential?",
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    question: "Is my identity as a reporter kept confidential?",
+    answer: "Yes. Your reports are shown to others as posted by \"Anonymous\" — your name is never displayed alongside your report."
   },
   {
     id: 'faq-4',
-    question: 'What types of vulnerabilities can be reported through this platform?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  },
-  {
-    id: 'faq-5',
-    question: 'How can I track the follow-up status of my report?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    question: 'What types of incidents can be reported through this platform?',
+    answer: 'You can report all kinds of everyday issues, such as damaged roads or facilities, broken street lights, garbage or cleanliness problems, safety and crime concerns, and natural disasters like flooding. Anything else that doesn\'t fit these can still be reported under "Other."'
   }
 ]
 
