@@ -1,7 +1,7 @@
 import { Map, Marker } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState, useEffect } from 'react'
-import { Plus } from 'lucide-react'
+import { Plus, Loader2 } from 'lucide-react'
 import { saveMarker, fetchAllMarkers, createNewMarker } from '../services/markerService.js'
 import SideBarMaps from "./SideBarMaps.jsx";
 
@@ -26,11 +26,14 @@ function MapInteractive() {
   const [isEditMode, setIsEditMode] = useState(false)
   const [draftMarkerLocation, setDraftMarkerLocation] = useState(null)
   const [draftMarkerData, setDraftMarkerData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const loadMarkers = async () => {
+      setIsLoading(true);
       const data = await fetchAllMarkers();
       setMarkers(data);
+      setIsLoading(false);
     };
 
     loadMarkers();
@@ -51,6 +54,7 @@ function MapInteractive() {
   const handleSaveDraftMarker = async () => {
     if (!draftMarkerLocation) return;
 
+    setIsLoading(true);
     const newMarker = createNewMarker(draftMarkerLocation, draftMarkerData)
     const cloudKey = await saveMarker(newMarker);
 
@@ -62,74 +66,82 @@ function MapInteractive() {
       setDraftMarkerLocation(null);
       setDraftMarkerData(null);
     }
+
+    setIsLoading(false);
   }
 
   return (
-      <div className="flex flex-row w-full h-full relative">
-        <div className="w-full h-full relative">
-          <button
-              type="button"
-              onClick={() => {
-                setIsEditMode(!isEditMode);
-                setDraftMarkerLocation(null);
-              }}
-              style={{
-                backgroundColor: isEditMode ? '#E53935' : '#008236'
-              }}
-              className="absolute font-bold cursor-pointer text-white w-16 h-16 rounded-full bottom-11 right-3 z-10 transition-all duration-100 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg"
-          >
-            <Plus className="h-8 w-8 stroke-[3px]" />
-          </button>
-          <Map
-              initialViewState={{
-                longitude: initialLongitude,
-                latitude: initialLatitude,
-                zoom: 15
-              }}
-              mapStyle="https://tiles.openfreemap.org/styles/bright"
-              onClick={mapHandleClick}
-          >
-
-            {markers.map((marker) => {
-              const markerColor = mapColorToTheme(marker.color);
-
-              return (
-                  <Marker
-                      key={marker.key}
-                      longitude={marker.longitude}
-                      latitude={marker.latitude}
-                      onClick={(e) => {
-                        e.originalEvent.stopPropagation();
-                        if (!isEditMode) setActivePopupKey(marker.key);
-                      }}
-                  >
-                    <div className="relative flex items-center justify-center cursor-pointer animate-scale-in">
-                      <div
-                          className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(0,0,0,0.15)] hover:scale-125 transition-transform duration-200"
-                          style={{
-                            width: '16px',
-                            height: '16px',
-                            backgroundColor: markerColor,
-                          }}
-                      />
-                    </div>
-                  </Marker>
-              );
-            })}
-          </Map>
+    <div className="flex flex-row w-full h-full relative">
+      {isLoading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-600/10 backdrop-blur-sm">
+          <Loader2 className="w-12 h-12 text-white animate-spin" />
         </div>
-        <SideBarMaps
-            detailsSelected={detailsSectionSelected}
-            setDetailsSelected={setDetailsSectionSelected}
-            isEditing={isEditMode}
-            selectedMarkerKey={activePopupKey}
-            markersDatabase={markers}
-            draftLocation={draftMarkerLocation}
-            draftData={draftMarkerData}
-            setDraftData={setDraftMarkerData}
-            handleSaveDraft={handleSaveDraftMarker}
-        />
+      )}
+
+      <div className="w-full h-full relative">
+        <button
+            type="button"
+            onClick={() => {
+              setIsEditMode(!isEditMode);
+              setDraftMarkerLocation(null);
+            }}
+            style={{
+              backgroundColor: isEditMode ? '#E53935' : '#008236'
+            }}
+            className="absolute font-bold cursor-pointer text-white w-16 h-16 rounded-full bottom-11 right-3 z-10 transition-all duration-100 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg"
+        >
+          <Plus className="h-8 w-8 stroke-[3px]" />
+        </button>
+        <Map
+            initialViewState={{
+              longitude: initialLongitude,
+              latitude: initialLatitude,
+              zoom: 15
+            }}
+            mapStyle="https://tiles.openfreemap.org/styles/bright"
+            onClick={mapHandleClick}
+        >
+
+          {markers.map((marker) => {
+            const markerColor = mapColorToTheme(marker.color);
+
+            return (
+                <Marker
+                    key={marker.key}
+                    longitude={marker.longitude}
+                    latitude={marker.latitude}
+                    onClick={(e) => {
+                      e.originalEvent.stopPropagation();
+                      if (!isEditMode) setActivePopupKey(marker.key);
+                    }}
+                >
+                  <div className="relative flex items-center justify-center cursor-pointer animate-scale-in">
+                    <div
+                        className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(0,0,0,0.15)] hover:scale-125 transition-transform duration-200"
+                        style={{
+                          width: '16px',
+                          height: '16px',
+                          backgroundColor: markerColor,
+                        }}
+                    />
+                  </div>
+                </Marker>
+            );
+          })}
+        </Map>
       </div>
+      <SideBarMaps
+          detailsSelected={detailsSectionSelected}
+          setDetailsSelected={setDetailsSectionSelected}
+          isEditing={isEditMode}
+          selectedMarkerKey={activePopupKey}
+          markersDatabase={markers}
+          draftLocation={draftMarkerLocation}
+          draftData={draftMarkerData}
+          setDraftData={setDraftMarkerData}
+          handleSaveDraft={handleSaveDraftMarker}
+      />
+    </div>
   )
 }
 
